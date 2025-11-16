@@ -9,6 +9,10 @@ spring:
     url: jdbc:mysql://localhost:3306/chatMemory?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: 123456
+  autoconfigure:
+    exclude:
+      - org.springframework.ai.autoconfigure.chat.client.ChatClientAutoConfiguration
+      - org.springframework.ai.autoconfigure.ollama.OllamaAutoConfiguration
 
 server:
   port: 8080

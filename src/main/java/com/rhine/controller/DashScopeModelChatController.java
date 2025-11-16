@@ -19,6 +19,7 @@ import reactor.core.publisher.Flux;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @RestController
 @RequestMapping("/dashscope")
 public class DashScopeModelChatController {
@@ -42,6 +43,7 @@ public class DashScopeModelChatController {
                 .defaultAdvisors(new SimpleLoggerAdvisor(), MessageChatMemoryAdvisor.builder(chatMemory).build())
                 .defaultOptions(DashScopeChatOptions.builder().withTopP(0.7).build())
                 .build();
+
     }
 
 
