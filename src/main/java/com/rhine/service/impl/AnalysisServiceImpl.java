@@ -44,7 +44,11 @@ public class AnalysisServiceImpl implements AnalysisService {
 
         // 方式4: 异步处理每个元素
         // content.subscribe(chunk -> System.out.println("收到: " + chunk));
-
         return content;
+    }
+
+
+    public void testReactAgent(String message){
+
     }
 }

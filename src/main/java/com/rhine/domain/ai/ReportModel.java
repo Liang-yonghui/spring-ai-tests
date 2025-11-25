@@ -6,6 +6,7 @@ import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions;
 import com.alibaba.cloud.ai.graph.OverAllState;
 import com.alibaba.cloud.ai.graph.agent.ReactAgent;
 import com.alibaba.cloud.ai.graph.exception.GraphRunnerException;
+import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
@@ -53,14 +54,8 @@ public class ReportModel {
 
 
     public void chatWithAgent(String message) throws GraphRunnerException {
-        Optional<OverAllState> invoke = reactAgent.invoke(message);
-        invoke.ifPresent(
-                overAllState -> {
-                    for (String s : overAllState.data().keySet()) {
-                        System.out.println(s + ": " + overAllState.value(s));
-                    }
-                }
-        );
+        AssistantMessage call = reactAgent.call(message);
+        System.out.println(call.getText());
     }
 
 

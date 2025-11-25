@@ -2,6 +2,8 @@ package com.rhine.domain.ai;
 
 import com.alibaba.cloud.ai.dashscope.api.DashScopeApi;
 import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatModel;
+import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions;
+import com.alibaba.cloud.ai.graph.agent.ReactAgent;
 import lombok.Data;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
@@ -26,6 +28,8 @@ public class AnalysisModel {
 
     private final String defaultSystem;
 
+    private ReactAgent reactAgent;
+
 
     public AnalysisModel(ChatClient.Builder chatClientBuilder) {
         // 读取agent配置文件
@@ -38,11 +42,18 @@ public class AnalysisModel {
         this.dashScopeApi = dashScopeApi;
         this.chatModel = DashScopeChatModel.builder()
                 .dashScopeApi(dashScopeApi)
+                .defaultOptions(DashScopeChatOptions.builder()
+                        .withTemperature(0.7).build())
                 .build();
 
         // 创建聊天记忆
         MessageWindowChatMemory memory = MessageWindowChatMemory.builder()
                 .maxMessages(10)
+                .build();
+
+        this.reactAgent = ReactAgent.builder()
+                .name("interviewAgent")
+                .model(chatModel)
                 .build();
 
         // 创建ChatClient，使用默认系统提示和顾问
@@ -65,4 +76,8 @@ public class AnalysisModel {
         }
     }
 
+
+    public ChatClient getChatClient() {
+        return chatClient;
+    }
 }
