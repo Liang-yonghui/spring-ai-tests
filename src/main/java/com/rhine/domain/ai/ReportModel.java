@@ -28,6 +28,8 @@ public class ReportModel {
 
     private String defaultSystem;
 
+    private PageQuery pageQuery;
+
     public ReportModel() {
         // 读取agent配置文件
         this.defaultSystem = loadDefaultSystem();
@@ -44,6 +46,7 @@ public class ReportModel {
                 .name("report_agent")
                 .model(chatModel)
                 .instruction(defaultSystem)
+                .inputType(pageQuery.getClass())
                 .chatOptions(DashScopeChatOptions.builder()
                         .withToolCallbacks(List.of())
                         .withTopP(0.7)
