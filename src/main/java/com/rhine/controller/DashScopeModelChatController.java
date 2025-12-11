@@ -60,7 +60,7 @@ public class DashScopeModelChatController {
 //                .content();
         Flux<String> content1 = dashScopeClient.prompt()
                 .user(prompt)
-                .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, chatId)).stream().content();
+                .advisors(a -> a.param("ChatMemory.CONVERSATION_ID", chatId)).stream().content();
         String collect = content1.collectList().block().stream().collect(Collectors.joining());
         System.out.println(collect);
         return content1;

@@ -13,7 +13,18 @@ spring:
     exclude:
       - org.springframework.ai.autoconfigure.chat.client.ChatClientAutoConfiguration
       - org.springframework.ai.autoconfigure.ollama.OllamaAutoConfiguration
-
+  jackson:
+    default-property-inclusion: non_null
+    deserialization:
+      fail-on-unknown-properties: false
+  ai:
+    openai:
+      api-key: ${SILICONFLOW_API_KEY}  # apiKey到硅基流动官网获取免费的
+      base-url: https://api.siliconflow.cn
+      chat:
+        options:
+          model: deepseek-ai/DeepSeek-V3 # 使用通义千问模型
+          temperature: 0.7
 server:
   port: 8080
   servlet:
